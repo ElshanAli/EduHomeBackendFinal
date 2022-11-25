@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Slider>
+@{
+    IEnumerable<Slider> sliders = Model;
+}
+
+@section Styles
+    {
+    <style>
+        .sliderImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
+
+
+    <h4 class="card-title">Slider Table</h4>
+    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Sub Title</th>
+                    <th>Button</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            @foreach (Slider slider in sliders)
+            {
+                <tr>
+                    <td>
+
+                        <img class="sliderImage" src="~/assets/img/slider/@slider.ImageUrl">
+                    </td>
+                    <td>@Html.Raw(slider.Title)</td>
+                    <td>@slider.Subtitle</td>
+                    <td>
+                        <a href="@slider.BtnSrc" target="_blank" class="btn btn-success text-nowrap">@slider.BtnText</a>
+                    </td>
+                    <td class="text-nowrap">
+                        <button class="btn btn-primary mx-1">Detail</button>
+                        <a asp-action="update" asp-route-id="@slider.Id" class="btn btn-warning mx-1">Update</a>
+                        <button class="btn btn-danger mx-1">Delete</button>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+</div>

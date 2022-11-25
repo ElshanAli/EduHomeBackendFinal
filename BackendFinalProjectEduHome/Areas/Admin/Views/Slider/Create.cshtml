@@ -1,0 +1,39 @@
+﻿@model SliderCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 class="card-title"> Create Slider</h4>
+<form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" placeholder="Enter the slider title...">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subtitle">Subtitle</label>
+        <input asp-for="Subtitle" class="form-control" placeholder="Enter the subtitle...">
+        <span asp-validation-for="Subtitle" class="text-danger"></span>
+    </div>
+   
+    <div class="form-group">
+        <label asp-for="Image">Choose Images</label>
+        <input asp-for="Image" class="form-control" placeholder="Choose Images" accept="image/*">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BtnText">Choose Button Text</label>
+        <input asp-for="BtnText" class="form-control" placeholder="Choose Button Text...">
+        <span asp-validation-for="BtnText" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BtnSrc">Choose Button Source</label>
+        <input asp-for="BtnSrc" class="form-control" placeholder="Choose Button Source...">
+        <span asp-validation-for="BtnSrc" class="text-danger"></span>
+    </div>
+  
+    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+    <button class="btn btn-light" asp-action="Index">Cancel</button>
+</form>
