@@ -1,53 +1,61 @@
-﻿@model IEnumerable<Slider>
+﻿@model IEnumerable<Blog>
+
 @{
-    IEnumerable<Slider> sliders = Model;
+    IEnumerable<Blog> blogs = Model;
+    ViewData["Title"] = "Index";
 }
 
 @section Styles
     {
     <style>
-        .sliderImage {
+        .blogImage {
             width: 150px !important;
             height: 150px !important;
             object-fit: contain !important;
             border-radius: 0px !important;
         }
     </style>
-}
-    <h4 class="card-title">Slider Table</h4>
+    }
+
+    <h4 class="card-title">Teacher Table</h4>
     <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
     <div class="table-responsive mt-4">
         <table class="table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Image</th>
+                    <th>Created By</th>
                     <th>Title</th>
-                    <th>Sub Title</th>
-                    <th>Button</th>
+                    <th>Subtitle</th>
+                    <th>Created Time</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
 
-            @foreach (Slider slider in sliders)
+            @foreach (Blog blog in blogs)
             {
                 <tr>
                     <td>
-                        <img class="sliderImage" src="~/assets/img/slider/@slider.ImageUrl">
+                        <img class="blogImage" src="~/assets/img/blog/@blog.ImageUrl">
                     </td>
-                    <td>@Html.Raw(slider.Title)</td>
-                    @{
-                        string subtitle = (slider.Subtitle.Length < 20) ? slider.Subtitle : slider.Subtitle.Substring(0, 20) + "...";
-                    }
-                    <td>@subtitle</td>
                     <td>
-                        <a href="@slider.BtnSrc" target="_blank" class="btn btn-success text-nowrap">@slider.BtnText</a>
+                        <h5>@blog.Name</h5>
                     </td>
-                    <td class="">                       
-                        <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@slider.Id">
+                    <td>
+                        <h5>@blog.Title</h5>
+                    </td>
+                      <td>
+                        <h5>@blog.Description</h5>
+                    </td>
+                    <td>
+                        <h5 class="text-nowrap">@blog.CreatedDate.ToString("MM/dd/yyyy HH:mm")</h5>
+                    </td>
+                    <td class="">
+                        <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@blog.Id">
                             <button type="submit" class="btn btn-danger mx-1">Delete</button>
                             <button class="btn btn-primary mx-1">Detail</button>
-                            <a asp-action="update" asp-route-id="@slider.Id" class="btn btn-warning mx-1">Update</a>
+                            <a asp-action="update" asp-route-id="@blog.Id" class="btn btn-warning mx-1">Update</a>
                         </form>
                     </td>
                 </tr>
@@ -56,3 +64,7 @@
         </tbody>
     </table>
 </div>
+
+
+
+
