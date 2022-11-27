@@ -11,15 +11,16 @@
         }
     </style>
 }
-    <h4 class="card-title">Teacher Table</h4>
-    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+    <h4 class="card-title">Event Table</h4>
+    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>Add</a>
     <div class="table-responsive mt-4">
         <table class="table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Image</th>
-                    <th>FullName</th>
-                    <th>Profession</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Speakers</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -29,13 +30,35 @@
             {
                 <tr>
                     <td>
-                        <img class="sliderImage" src="~/assets/img/teacher/@holiday.ImageUrl">
+                        <img class="sliderImage" src="~/assets/img/event/@(holiday.ImageUrl)">
                     </td>
                     <td>
-                        <h5>@holiday.Title</h5>
+                        <h5>@(holiday.Title)</h5>
                     </td>
                     <td>
-                        <h5>@holiday.Title</h5>
+                        @if (holiday.StartDate.ToString("yyyy") == holiday.EndDate.ToString("yyyy"))
+                        {
+                            if (holiday.StartDate.ToString("MM") == holiday.EndDate.ToString("MM"))
+                            {
+                                if (holiday.StartDate.ToString("dd") == holiday.EndDate.ToString("dd"))
+                                {
+                                    @(holiday.StartDate.ToString("HH:mm") + " - " + holiday.EndDate.ToString("HH:mm"))
+                                    <br>
+                                    <br>
+                                    @(holiday.EndDate.ToString("dd MMM yyyy"))
+                                }
+                            }
+                            else
+                            {
+                                @(holiday.StartDate.ToString("dd MMM HH:mm") + " - " + holiday.EndDate.ToString("dd MMM HH:mm") + " " + holiday.EndDate.ToString("yyyy"))
+                            }
+                        }
+                        else
+                        {
+                            @("From " + holiday.StartDate.ToString("dd.MM.yyyy"))
+                            <br>
+                            @("To " + holiday.EndDate.ToString("dd.MM.yyyy"))
+                        }
                     </td>
                     <td>
                         @foreach (var item in holiday.EventSpeakers)
@@ -47,7 +70,7 @@
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@holiday.Id">
                             <button type="submit" class="btn btn-danger mx-1">Delete</button>
                             <button class="btn btn-primary mx-1">Detail</button>
-                            <a asp-action="update" asp-route-id="@holiday.Id" class="btn btn-warning mx-1">Update</a>
+                            <a asp-action="update" asp-route-id="@(holiday.Id)" class="btn btn-warning mx-1">Update</a>
                         </form>
                     </td>
                 </tr>

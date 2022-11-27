@@ -21,6 +21,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             IEnumerable<Slider> sliders = await _dbContext.Sliders
                 .Where(sl => !sl.IsDeleted)
+                .OrderByDescending(e => e.Id)
                 .ToListAsync();
 
             return View(sliders);

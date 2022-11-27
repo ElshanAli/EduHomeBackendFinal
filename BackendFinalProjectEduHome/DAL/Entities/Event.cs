@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackendFinalProjectEduHome.DAL.Entity
 {
@@ -13,7 +13,7 @@ namespace BackendFinalProjectEduHome.DAL.Entity
         public string Description { get; set; }
         public string? ImageUrl { get; set; }
         public string Address { get; set; }
-
         public ICollection<EventSpeaker> EventSpeakers { get; set; }
+      
     }
 }

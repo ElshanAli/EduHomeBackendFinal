@@ -22,6 +22,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             IEnumerable<Blog> blogs = await _dbContext.Blogs
                 .Where(b => !b.IsDeleted)
+                .OrderByDescending(e => e.Id)
                 .ToListAsync();
 
             return View(blogs);

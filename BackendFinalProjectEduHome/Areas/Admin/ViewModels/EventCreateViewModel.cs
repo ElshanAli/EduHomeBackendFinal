@@ -15,8 +15,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.ViewModels
         public string Description { get; set; }
         public IFormFile Image { get; set; }
         public string Address { get; set; }
-
-        public List<SelectList> Speakers { get; set; }
-        //public List<SelectList> SpeakerList { get; set; }
+        public List<SelectListItem>? Speakers { get; set; }
+        public List<int> SpeakerIds { get; set; }
     }
 }

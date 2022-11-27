@@ -24,6 +24,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             IEnumerable<Teacher> teachers = await _dbContext.Teachers
                 .Where(t => !t.IsDeleted)
+                .OrderByDescending(e => e.Id)
                 .ToListAsync();
 
             return View(teachers);
