@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Event>
+
+@section Styles
+    {
+    <style>
+        .sliderImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
+    <h4 class="card-title">Teacher Table</h4>
+    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>FullName</th>
+                    <th>Profession</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            @foreach (Event holiday in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="sliderImage" src="~/assets/img/teacher/@holiday.ImageUrl">
+                    </td>
+                    <td>
+                        <h5>@holiday.Title</h5>
+                    </td>
+                    <td>
+                        <h5>@holiday.Title</h5>
+                    </td>
+                    <td>
+                        @foreach (var item in holiday.EventSpeakers)
+                        {
+                            @(item.Speaker.Firstname + " " + item.Speaker.Lastname)
+                        }
+                    </td>
+                    <td class="">
+                        <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@holiday.Id">
+                            <button type="submit" class="btn btn-danger mx-1">Delete</button>
+                            <button class="btn btn-primary mx-1">Detail</button>
+                            <a asp-action="update" asp-route-id="@holiday.Id" class="btn btn-warning mx-1">Update</a>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+

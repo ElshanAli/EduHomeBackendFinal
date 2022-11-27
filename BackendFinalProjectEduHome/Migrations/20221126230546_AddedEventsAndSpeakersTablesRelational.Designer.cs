@@ -4,6 +4,7 @@ using BackendFinalProjectEduHome.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendFinalProjectEduHome.Migrations
 {
     [DbContext(typeof(EduHomeDbContext))]
-    partial class EduHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221126230546_AddedEventsAndSpeakersTablesRelational")]
+    partial class AddedEventsAndSpeakersTablesRelational
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
