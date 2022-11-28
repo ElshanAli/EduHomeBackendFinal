@@ -1,7 +1,65 @@
-﻿
+﻿@model SpeakerUpdateViewModel
 @{
     ViewData["Title"] = "Update";
 }
 
-<h2>Update</h2>
+@section Styles
+    {
+    <style>
+        .speakerImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
+
+    <h4 class="card-title"> Update Speaker</h4>
+    <form class="forms-sample" method="post" asp-action="Update" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Firstname">FirstName</label>
+            <input asp-for="Firstname" class="form-control" placeholder="Enter the speaker first name...">
+            <span asp-validation-for="Firstname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Lastname">Name</label>
+            <input asp-for="Lastname" class="form-control" placeholder="Enter the speaker last name...">
+            <span asp-validation-for="Lastname" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Image">Choose Images</label>
+            <input asp-for="Image" class="form-control" placeholder="Choose Images" accept="image/*">
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="imagesTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img class="speakerImage" src="~/assets/img/speaker/@Model.ImageUrl">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger removeProductImage" data-id="@Model.Id">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label asp-for="Position">Description</label>
+            <input asp-for="Position" class="form-control" placeholder="Enter the speaker position...">
+            <span asp-validation-for="Position" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+        <button class="btn btn-light" asp-action="Index">Cancel</button>
+    </form>
 

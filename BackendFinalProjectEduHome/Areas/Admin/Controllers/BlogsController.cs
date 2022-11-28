@@ -17,7 +17,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             _dbContext = dbContext;
         }
-
         public async Task<IActionResult> Index()
         {
             IEnumerable<Blog> blogs = await _dbContext.Blogs
@@ -38,8 +37,8 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         public async Task<IActionResult> Create(BlogCreateViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
-            if (!model.Image.IsImage())
+         
+                if (!model.Image.IsImage())
             {
                 ModelState.AddModelError("", "Must be selected image");
                 return View(model);
@@ -63,7 +62,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             };
 
             await _dbContext.Blogs.AddAsync(blogs);
-
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -113,7 +111,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 if (!model.Image.IsImage())
                 {
                     ModelState.AddModelError("", "Must be selected image");
-                    return View(new SliderUpdateViewModel
+                    return View(new BlogUpdateViewModel
                     {
                         ImageUrl = blogs.ImageUrl,
                     });
@@ -124,6 +122,12 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Image size can be max 7 mb");
                     return View(model);
                 }
+                if (blogs.ImageUrl is null) return NotFound();
+                
+                var blogImagePath = Path.Combine(Constants.RootPath, "assets", "img", "blog", blogs.ImageUrl);
+
+                if (System.IO.File.Exists(blogImagePath))
+                    System.IO.File.Delete(blogImagePath);
 
                 var unicalName = await model.Image.Generatefile(Constants.BlogPath);
                 blogs.ImageUrl = unicalName;

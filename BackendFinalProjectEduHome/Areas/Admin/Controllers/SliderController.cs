@@ -125,8 +125,16 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                     return View(model);
                 }
 
+                if (slider.ImageUrl is null) return NotFound();
+
+                var sliderImagePath = Path.Combine(Constants.RootPath, "assets", "img", "slider", slider.ImageUrl);
+
+                if (System.IO.File.Exists(sliderImagePath))
+                    System.IO.File.Delete(sliderImagePath);
+
                 var unicalName = await model.Image.Generatefile(Constants.SliderPath);
                 slider.ImageUrl = unicalName;
+                
             }
 
             slider.Title = model.Title;           

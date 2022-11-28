@@ -1,5 +1,6 @@
 ﻿using BackendFinalProjectEduHome.Areas.Admin.Data;
 using BackendFinalProjectEduHome.Areas.Admin.ViewModels;
+using BackendFinalProjectEduHome.Areas.ViewModels;
 using BackendFinalProjectEduHome.DAL;
 using BackendFinalProjectEduHome.DAL.Entity;
 using BackendFinalProjectEduHome.Data;
@@ -20,18 +21,15 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Speaker> speakers = await _dbContext.Speakers
-                .OrderByDescending(e => e.Id)
+                .OrderByDescending(sp => sp.Id)
                 .ToListAsync();
 
             return View(speakers);
         }
 
         public  IActionResult Create() 
-        {
-           
-
-            return View();
-        
+        {          
+            return View();        
         }
 
         [HttpPost]
@@ -80,11 +78,69 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             var speakerViewModel = new SpeakerUpdateViewModel
             {
-                Id = speakers.Id
+                Id = speakers.Id,
+                Firstname = speakers.Firstname,
+                Lastname = speakers.Lastname,
+                ImageUrl = speakers.ImageUrl,
+                Position = speakers.Position,
 
             };
 
-            return View();
+            return View(speakerViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, SpeakerUpdateViewModel model)
+        {
+            if (id is null) return BadRequest();
+
+            var speakers = await _dbContext.Speakers
+                .Where(sp => sp.Id == id)               
+                .FirstOrDefaultAsync();
+
+            if (speakers == null) return NotFound();
+
+            if (!ModelState.IsValid) return View(new SpeakerUpdateViewModel
+            {
+                ImageUrl = speakers.ImageUrl
+            });
+
+            if (model.Image != null)
+            {
+                if (!model.Image.IsImage())
+                {
+                    ModelState.AddModelError("", "Must be selected image");
+                    return View(new BlogUpdateViewModel
+                    {
+                        ImageUrl = speakers.ImageUrl,
+                    });
+                }
+
+                if (!model.Image.IsAllowedSize(7))
+                {
+                    ModelState.AddModelError("", "Image size can be max 7 mb");
+                    return View(model);
+                }
+
+                if (speakers.ImageUrl is null) return NotFound();
+
+                var speakerImagePath = Path.Combine(Constants.RootPath, "assets", "img", "speaker", speakers.ImageUrl);
+
+                if (System.IO.File.Exists(speakerImagePath))
+                    System.IO.File.Delete(speakerImagePath);
+
+                var unicalName = await model.Image.Generatefile(Constants.SpeakerPath);
+                speakers.ImageUrl = unicalName;               
+            }
+
+            speakers.Firstname = model.Firstname;
+            speakers.Lastname = model.Lastname;
+            speakers.Position = model.Position;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int? id)

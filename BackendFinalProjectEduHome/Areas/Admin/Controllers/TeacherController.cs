@@ -152,8 +152,14 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                     return View(model);
                 }
 
-                var unicalName = await model.Image.Generatefile(Constants.TeacherPath);
+                if (teachers.ImageUrl is null) return NotFound();
 
+                var teacherImagePath = Path.Combine(Constants.RootPath, "assets", "img", "blog", teachers.ImageUrl);
+
+                if (System.IO.File.Exists(teacherImagePath))
+                    System.IO.File.Delete(teacherImagePath);
+
+                var unicalName = await model.Image.Generatefile(Constants.TeacherPath);
                 teachers.ImageUrl = unicalName;
             }
 
