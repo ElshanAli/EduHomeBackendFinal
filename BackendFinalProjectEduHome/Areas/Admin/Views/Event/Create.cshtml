@@ -1,32 +1,4 @@
-﻿@*@model Event
-@{
-    ViewData["Title"] = "Create";
-}
-@if (Model?.EventSpeakers?.Count() > 0)
-{
-    @for (int i = 0; i < Model.EventSpeakers.Count(); i++)
-    {
-        <div class="row">
-            <div class="form-group col-lg-3">
-                <label>Select Color</label>
-                <select name="SpeakerIds[]" class="form-control" asp-items="@new SelectList(ViewBag.Speakers, nameof(Speaker.Id), nameof(Speaker.Firstname), Model.EventSpeakers.ElementAt(i).Speaker.Id)">
-                    <option> @Model.EventSpeakers.ElementAt(i).Speaker.Firstname</option>
-                </select>
-
-                <span class="text-danger"></span>
-            </div>
-
-
-        </div>
-    }
-}
-
-@section Scripts
-{
-
-}*@
-
-@model EventCreateViewModel
+﻿@model EventCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -58,7 +30,7 @@
     </div>
     <div class="form-group">
         <label asp-for="SpeakerIds">Choose The Speakers</label>
-        <select asp-for="SpeakerIds" asp-items="Model.Speakers" class="form-control" placeholder="Choose Child Category"></select>
+        <select asp-for="SpeakerIds" asp-items="Model.Speakers" class="form-control"></select>
         <span asp-validation-for="SpeakerIds" class="text-danger"></span>
     </div>
 
@@ -82,6 +54,7 @@
                class="form-control" required>
         <span asp-validation-for="EndDate" class="text-danger"></span>
     </div>
+    
 
     <button type="submit" class="btn btn-primary mr-2">Submit</button>
     <button class="btn btn-light" asp-action="Index">Cancel</button>

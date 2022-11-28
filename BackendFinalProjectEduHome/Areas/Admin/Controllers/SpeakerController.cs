@@ -72,6 +72,17 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (id is null) return BadRequest();
 
+            var speakers = await _dbContext.Speakers
+                .Where(sp => sp.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (speakers == null) return NotFound();
+
+            var speakerViewModel = new SpeakerUpdateViewModel
+            {
+                Id = speakers.Id
+
+            };
 
             return View();
         }

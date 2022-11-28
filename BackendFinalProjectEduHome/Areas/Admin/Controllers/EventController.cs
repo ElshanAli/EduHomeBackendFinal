@@ -31,7 +31,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
-
             var speakers = await _dbContext.Speakers.ToListAsync();
 
             var eventSpeakersSelectList = new List<SelectListItem>();
@@ -52,24 +51,32 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         public async Task<IActionResult> Create(EventCreateViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
+           
             if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
             {
-                ModelState.AddModelError("StartDate", "Error");
+                ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
                 return View(model);
             }
-
+           
             if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
             {
-                ModelState.AddModelError("EndDate", "Error");
+                ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
                 return View(model);
             }
 
             if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
             {
-                ModelState.AddModelError("", "Error");
+                ModelState.AddModelError("", "Start Date must be earlier than End Date");
                 return View(model);
             }
+  
+            //if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
+            //    || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
+            //    || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
+            //{
+            //    ModelState.AddModelError("", "Start Date and End Date must be same day");
+            //    return View(model);
+            //}
 
             if (!model.Image.IsImage())
             {
@@ -112,7 +119,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             }
 
-            var speakers = await _dbContext.Speakers.ToListAsync();
+            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
 
             var eventSpeakersSelectList = new List<SelectListItem>();
             speakers.ForEach(c => eventSpeakersSelectList
@@ -131,7 +138,51 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (id is null) return BadRequest();
 
-            return View();
+            var dbEvent = await _dbContext.Events
+                .Include(e => e.EventSpeakers).ThenInclude(es => es.Speaker)
+                .Where(e => !e.IsDeleted && e.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (dbEvent is null) return NotFound();
+
+            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
+
+            var eventSpeakersSelectList = new List<SelectListItem>();
+
+            speakers.ForEach(c => eventSpeakersSelectList
+            .Add(new SelectListItem(c.Firstname + " " + c.Lastname, c.Id.ToString())));
+
+            List<EventSpeaker> eventSpeakers = new List<EventSpeaker>();
+
+            foreach (EventSpeaker eventSpeaker in dbEvent.EventSpeakers)
+            {
+                if (!await _dbContext.Speakers.AnyAsync(s => s.Id == eventSpeaker.SpeakerId))
+                {
+                    ModelState.AddModelError("", "Incorect Speaker Id");
+                    return View();
+                }
+
+                eventSpeakers.Add(new EventSpeaker
+                {
+                    SpeakerId = eventSpeaker.SpeakerId
+                });
+            }
+
+            var eventViewModel = new EventUpdateViewModel
+            {
+                Id = dbEvent.Id,
+                StartDate = dbEvent.StartDate,
+                EndDate = dbEvent.EndDate,
+                Title = dbEvent.Title,
+                Description = dbEvent.Description,
+                ImageUrl = dbEvent.ImageUrl,
+                Address = dbEvent.Address,
+                Speakers = eventSpeakersSelectList,
+                SpeakerIds = eventSpeakers.Select(s => s.SpeakerId).ToList()
+              
+            };
+
+            return View(eventViewModel);
         }
 
         public async Task<IActionResult> Delete(int? id)

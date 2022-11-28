@@ -47,6 +47,10 @@
                                     <br>
                                     @(holiday.EndDate.ToString("dd MMM yyyy"))
                                 }
+                                else
+                                {
+                                    @(holiday.StartDate.ToString("dd MMM HH:mm") + " - " + holiday.EndDate.ToString("dd MMM HH:mm") + " " + holiday.EndDate.ToString("yyyy"))
+                                }
                             }
                             else
                             {
@@ -63,7 +67,7 @@
                     <td>
                         @foreach (var item in holiday.EventSpeakers)
                         {
-                            @(item.Speaker.Firstname + " " + item.Speaker.Lastname)
+                            @(item.Speaker.Firstname +  " " + item.Speaker.Lastname)
                         }
                     </td>
                     <td class="">

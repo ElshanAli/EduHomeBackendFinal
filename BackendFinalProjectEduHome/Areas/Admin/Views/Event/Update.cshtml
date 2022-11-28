@@ -1,7 +1,61 @@
-﻿
+﻿@model EventUpdateViewModel
+
 @{
     ViewData["Title"] = "Update";
 }
 
-<h2>Update</h2>
+<h4 class="card-title"> Create Event</h4>
+<form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" placeholder="Enter the event title...">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" placeholder="Enter the the description...">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
 
+    <div class="form-group">
+        <label asp-for="Image">Choose Event Images</label>
+        <input asp-for="Image" class="form-control" placeholder="Choose Images" accept="image/*">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Address</label>
+        <input asp-for="Address" class="form-control" placeholder="Write event address...">
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SpeakerIds">Choose The Speakers</label>
+        <select asp-for="SpeakerIds" asp-items="Model.Speakers" class="form-control"></select>
+        <span asp-validation-for="SpeakerIds" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDate" class="form-label">Start Date *</label>
+        <input asp-for="StartDate" asp-format="{0:yyyy-MM-ddTHH:mm}"
+               value="@DateTime.UtcNow.AddHours(4).AddDays(1).ToString("yyyy-MM-dd 00:00")"
+               min="@DateTime.UtcNow.AddHours(4).AddDays(1).ToString("yyyy-MM-dd 00:00")"
+               max="@DateTime.UtcNow.AddHours(4).AddDays(30).ToString("yyyy-MM-dd 23:59")"
+               class="form-control" required>
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="EndDate" class="form-label">End Date *</label>
+        <input asp-for="EndDate" asp-format="{0:yyyy-MM-ddTHH:mm}"
+               value="@DateTime.UtcNow.AddHours(4).AddDays(1).ToString("yyyy-MM-dd 23:59")"
+               min="@DateTime.UtcNow.AddHours(4).AddDays(1).ToString("yyyy-MM-dd 00:00")"
+               max="@DateTime.UtcNow.AddHours(4).AddDays(30).ToString("yyyy-MM-dd 23:59")"
+               class="form-control" required>
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+    <button class="btn btn-light" asp-action="Index">Cancel</button>
+</form>
