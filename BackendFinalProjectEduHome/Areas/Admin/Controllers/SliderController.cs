@@ -173,6 +173,4 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-
-  
 }

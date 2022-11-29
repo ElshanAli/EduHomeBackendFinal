@@ -38,7 +38,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(model);
          
-                if (!model.Image.IsImage())
+            if (!model.Image.IsImage())
             {
                 ModelState.AddModelError("", "Must be selected image");
                 return View(model);

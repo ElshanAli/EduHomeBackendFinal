@@ -20,7 +20,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Speaker> speakers = await _dbContext.Speakers
+            IEnumerable<Speaker> speakers = await _dbContext.Speakers.Include(s=>s.EventSpeakers).ThenInclude(s=>s.Event)
                 .OrderByDescending(sp => sp.Id)
                 .ToListAsync();
 

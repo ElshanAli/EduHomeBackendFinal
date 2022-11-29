@@ -22,6 +22,7 @@
                 Directory.CreateDirectory(path);
 
             var unicalName = $"{Guid.NewGuid()}-{file.FileName}";
+            //var unicalName = $"{DateTime.UtcNow.AddHours(4).ToString("yyyy-MM-dd-HH-mm-ss")}-{Guid.NewGuid()}-{file.FileName}";
 
             using FileStream fs = new(Path.Combine(path, unicalName), FileMode.Create);
 

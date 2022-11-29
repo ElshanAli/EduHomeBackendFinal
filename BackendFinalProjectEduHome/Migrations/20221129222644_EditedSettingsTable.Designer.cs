@@ -4,6 +4,7 @@ using BackendFinalProjectEduHome.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendFinalProjectEduHome.Migrations
 {
     [DbContext(typeof(EduHomeDbContext))]
-    partial class EduHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129222644_EditedSettingsTable")]
+    partial class EditedSettingsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs", (string)null);
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.Event", b =>
@@ -91,7 +93,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.EventSpeaker", b =>
@@ -117,7 +119,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasIndex("SpeakerId");
 
-                    b.ToTable("EventSpeakers", (string)null);
+                    b.ToTable("EventSpeakers");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.Settings", b =>
@@ -185,7 +187,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.Slider", b =>
@@ -220,7 +222,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders", (string)null);
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.Speaker", b =>
@@ -251,7 +253,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Speakers", (string)null);
+                    b.ToTable("Speakers");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.Teacher", b =>
@@ -329,7 +331,7 @@ namespace BackendFinalProjectEduHome.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("BackendFinalProjectEduHome.DAL.Entity.EventSpeaker", b =>

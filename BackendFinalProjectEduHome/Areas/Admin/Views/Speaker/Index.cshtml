@@ -34,6 +34,7 @@
                     <th>Image</th>
                     <th>FullName</th>
                     <th>Profession</th>
+                    <th>Events</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -50,6 +51,14 @@
                     </td>
                     <td>
                         <h5>@speaker.Position</h5>
+                    </td>
+                    <td>
+                        @foreach (var item in speaker.EventSpeakers)
+                        {
+                            <h6>
+                                @item.Event.Title
+                            </h6>
+                        }
                     </td>
                     <td class="">
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@speaker.Id">

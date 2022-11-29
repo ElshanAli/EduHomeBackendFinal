@@ -1,0 +1,128 @@
+﻿@model Settings
+@{
+    ViewData["Title"] = "Settings";
+}
+
+
+<style>
+    td img {
+        width: 150px !important;
+        height: 150px !important;
+        object-fit: contain !important;
+        border-radius: 0px !important;
+    }
+</style>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody class="align-middle">
+            <tr>
+                <th>Header Logo</th>
+                <td>
+                    <img src="~/assets/img/setting/@Model.HeaderLogo" alt="logo" />
+                </td>
+            </tr>
+            <tr>
+                <th>Footer Logo</th>
+                <td style="background-color: #fff;">
+                    <img src="~/assets/img/setting/@Model.FooterLogo" alt="logo" />
+                </td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>
+                    <a href="tel:@Model.Phone">@Model.Phone</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Second Phone</th>
+                <td>
+                    <a href="tel:@Model.SecondPhone">@Model.SecondPhone</a>
+                </td>
+            </tr>
+            @if (Model.SecondPhone != null && Model.SecondPhone != string.Empty)
+            {
+                <tr>
+                    <th>Additional Mobile Phone</th>
+                    <td>
+                        <a href="tel:@Model.SecondPhone">@Model.SecondPhone</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <th>Email</th>
+                <td>
+                    <a href="mailto:@Model.Email">@Model.Email</a>
+                </td>
+            </tr>
+            @if (Model.SecondEmail != null && Model.SecondEmail != string.Empty)
+            {
+                <tr>
+                    <th>Additional Email</th>
+                    <td>
+                        <a href="mailto:@Model.SecondEmail">@Model.SecondEmail</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <th>Main Address</th>
+                <td>
+                    <div>@Model.Address</div>
+                    <hr>
+                    <div>
+                        @Html.Raw(Model.GoogleMapCode)
+                    </div>
+                </td>
+            </tr>
+            @if (Model.FacebookLink != null && Model.FacebookLink != string.Empty)
+            {
+                <tr>
+                    <th>Facebook</th>
+                    <td style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <a href="@Model.FacebookLink" target="_blank">@Model.FacebookLink</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            @if (Model.PinterestLink != null && Model.PinterestLink != string.Empty)
+            {
+                <tr>
+                    <th>Pinterest</th>
+                    <td style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <a href="@Model.PinterestLink" target="_blank">@Model.PinterestLink</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            @if (Model.TwitterLink != null && Model.TwitterLink != string.Empty)
+            {
+                <tr>
+                    <th>Twitter</th>
+                    <td style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <a href="@Model.TwitterLink" target="_blank">@Model.TwitterLink</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            @if (Model.VimeoLink != null && Model.VimeoLink != string.Empty)
+            {
+                <tr>
+                    <th>LinkedIn</th>
+                    <td style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <a href="@Model.VimeoLink" target="_blank">@Model.VimeoLink</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="Settings" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-block btn-warning">Update</a>
+</div>

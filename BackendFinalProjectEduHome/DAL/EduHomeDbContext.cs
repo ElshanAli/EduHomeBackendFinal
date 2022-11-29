@@ -13,5 +13,6 @@ namespace BackendFinalProjectEduHome.DAL
         public DbSet<Event> Events { get; set; }
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<EventSpeaker> EventSpeakers { get; set; }
+        public DbSet<Settings> Settings { get; set; }
     }
 }

@@ -8,5 +8,6 @@
         public static string BlogPath;
         public static string EventPath;
         public static string SpeakerPath;
+        public static string SettingsPath;
     }
 }
