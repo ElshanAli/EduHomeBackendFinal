@@ -109,7 +109,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             {
                 if (!await _dbContext.Speakers.AnyAsync(s => s.Id == speakerId))
                 {
-                    ModelState.AddModelError("", "Incorect Speaker Id");
+                    ModelState.AddModelError("", "Incorect Speaker");
                     return View();
                 }
 
@@ -140,8 +140,9 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             if (id is null) return BadRequest();
 
             var dbEvent = await _dbContext.Events
-                .Include(e => e.EventSpeakers).ThenInclude(es => es.Speaker)
                 .Where(e => !e.IsDeleted && e.Id == id)
+                .Include(e => e.EventSpeakers).ThenInclude(es => es.Speaker)
+                
                 .FirstOrDefaultAsync();
 
             if (dbEvent is null) return NotFound();
@@ -255,6 +256,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
                     eventSpeakers.Add(eventSpeaker);
                 }
+
                 dbEvent.EventSpeakers = eventSpeakers;
             }
             else

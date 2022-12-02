@@ -2,7 +2,7 @@
 
 namespace BackendFinalProjectEduHome.ViewModels
 {
-    public class HomeViwModel
+    public class HomeViewModel
     {
         public List<Slider> Sliders { get; set; } = new List<Slider>();
     }

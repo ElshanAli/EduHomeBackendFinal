@@ -27,6 +27,8 @@ namespace BackendFinalProjectEduHome
             Constants.EventPath = Path.Combine(Constants.RootPath, "assets", "img", "event");
             Constants.SpeakerPath = Path.Combine(Constants.RootPath, "assets", "img", "speaker");
             Constants.SettingsPath = Path.Combine(Constants.RootPath, "assets", "img", "setting");
+            Constants.WelcomeEduPath = Path.Combine(Constants.RootPath, "assets", "img", "welcomeedu");
+            Constants.CoursePath = Path.Combine(Constants.RootPath, "assets", "img", "course");
 
             var app = builder.Build();
 

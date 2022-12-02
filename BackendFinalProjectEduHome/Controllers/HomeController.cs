@@ -16,7 +16,7 @@ namespace BackendFinalProjectEduHome.Controllers
         public IActionResult Index()
         {
             var slider = _dbContext.Sliders.ToList();
-            var homeViewModel = new HomeViwModel
+            var homeViewModel = new HomeViewModel
             {
                 Sliders = slider,
             };

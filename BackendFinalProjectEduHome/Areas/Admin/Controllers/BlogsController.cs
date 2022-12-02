@@ -74,7 +74,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 .Where(bl => bl.Id == id)
                 .FirstOrDefaultAsync();
 
-
             if (blogs is null) return NotFound();
 
             var blogViewModel = new BlogUpdateViewModel

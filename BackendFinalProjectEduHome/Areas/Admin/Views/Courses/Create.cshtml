@@ -1,0 +1,94 @@
+﻿@model CourseFeatureViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1 class="text text-success">Create course</h1>
+<div class="alert alert-danger" asp-validation-summary="All"></div>
+<form method="post" class="mt-2" enctype="multipart/form-data">
+    <div class="mb-2">
+        <label asp-for="@Model.Image" class="form-label">Course image</label>
+        <input asp-for="@Model.Image" accept="image/*" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Image"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Course.Title" class="form-label">Name</label>
+        <input asp-for="@Model.Course.Title" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.Title"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Course.Description" class="form-label">Description</label>
+        <input asp-for="@Model.Course.Description" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.Description"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Course.About" class="form-label">About</label>
+        <input asp-for="@Model.Course.About" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.About"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Course.Certification" class="form-label">Certification</label>
+        <input asp-for="@Model.Course.Certification" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.Certification"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Course.HowToApply" class="form-label">How to apply</label>
+        <input asp-for="@Model.Course.HowToApply" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.HowToApply"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.Course.CategoryId" class="form-label">Category</label>
+        <select asp-for="@Model.Course.CategoryId" class="form-select" asp-items="@(new SelectList(ViewBag.CategoryIds,"Id","Name"))">
+            <option value="0">Select category</option>
+        </select>
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Course.CategoryId"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.StartDate" class="form-label">Start time</label>
+        <input asp-for="@Model.Feature.StartDate" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.StartDate"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.Duration" class="form-label">Duration</label>
+        <input asp-for="@Model.Feature.Duration" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.Duration"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.ClassDuration" class="form-label">Class duration</label>
+        <input asp-for="@Model.Feature.ClassDuration" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.ClassDuration"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.SkillLevel" class="form-label">Skill level</label>
+        <input asp-for="@Model.Feature.SkillLevel" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.SkillLevel"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.Language" class="form-label">Language</label>
+        <input asp-for="@Model.Feature.Language" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.Language"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.Assesments" class="form-label">Assesments</label>
+        <input asp-for="@Model.Feature.Assesments" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.Assesments"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.StudentCount" class="form-label">Student count</label>
+        <input asp-for="@Model.Feature.StudentCount" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.StudentCount"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="@Model.Feature.CourseFee" class="form-label">Fee</label>
+        <input asp-for="@Model.Feature.CourseFee" class="form-control">
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.Feature.CourseFee"></span>
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+

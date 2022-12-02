@@ -1,0 +1,28 @@
+﻿@model NoticeBoardCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 class="card-title"> Create Notice Board</h4>
+<form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="NoticeTitle">Notice Board Title</label>
+        <input asp-for="NoticeTitle" class="form-control" placeholder="Enter the notice board title...">
+        <span asp-validation-for="NoticeTitle" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NoticeDescription">Notice Board Description</label>
+        <input asp-for="NoticeDescription" class="form-control" placeholder="Enter the notice board description...">
+        <span asp-validation-for="NoticeDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VideoUrl">Add VideoUrl</label>
+        <input asp-for="VideoUrl" class="form-control" placeholder="Add VideoUrl..." accept="image/*">
+        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+    <button class="btn btn-light" asp-action="Index">Cancel</button>
+</form>

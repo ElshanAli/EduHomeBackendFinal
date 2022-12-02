@@ -1,0 +1,28 @@
+﻿@model WelcomeEduCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 class="card-title"> Create Welcome Edu</h4>
+<form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" placeholder="Enter the title...">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" placeholder="Enter the description...">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image">Choose Images</label>
+        <input asp-for="Image" class="form-control" placeholder="Choose Images" accept="image/*">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+    <button class="btn btn-light" asp-action="Index">Cancel</button>
+</form>

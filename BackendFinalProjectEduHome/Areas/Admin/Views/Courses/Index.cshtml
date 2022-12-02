@@ -1,0 +1,65 @@
+﻿@model CourseFeatureViewModel
+
+@{
+
+    ViewData["Title"] = "Index";
+}
+
+
+@section Styles
+    {
+    <style>
+        .sliderImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
+
+    <h4 class="card-title">Course Table</h4>
+    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            @foreach (Course course in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        <img class="sliderImage" src="~/assets/img/course/@course.ImageUrl">
+                    </td>
+                    <td>
+                        <h5>@course.Title</h5>
+                    </td>
+                    <td>
+                        <h5>@course.Description</h5>
+                    </td>
+                   @* <td>
+                        <h5>@course.Category.Name</h5>
+                    </td>*@
+                    <td class="">
+                        <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@course.Id">
+                            <button type="submit" class="btn btn-danger mx-1">Delete</button>
+                            <button class="btn btn-primary mx-1">Detail</button>
+                            <a asp-action="update" asp-route-id="@course.Id" class="btn btn-warning mx-1">Update</a>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+

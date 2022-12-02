@@ -6,7 +6,7 @@
 
 <h4 class="card-title"> Create Event</h4>
 <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" placeholder="Enter the event title...">
@@ -30,7 +30,10 @@
     </div>
     <div class="form-group">
         <label asp-for="SpeakerIds">Choose The Speakers</label>
-        <select asp-for="SpeakerIds" asp-items="Model.Speakers" class="form-control"></select>
+        <select asp-for="SpeakerIds" asp-items="Model.Speakers" class="form-select">
+            <option value="0">Select category</option>
+        </select>
+       
         <span asp-validation-for="SpeakerIds" class="text-danger"></span>
     </div>
 

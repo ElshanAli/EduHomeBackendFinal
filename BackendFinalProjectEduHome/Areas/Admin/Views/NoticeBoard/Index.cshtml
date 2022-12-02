@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NoticeBoard>
+
+@{
+    IEnumerable<NoticeBoard> noticeBoards = Model;
+    ViewData["Title"] = "Index";
+}
+
+<h4 class="card-title">Notice Board Table</h4>
+<a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+<div class="table-responsive mt-4">
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Video Link</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (NoticeBoard noticeBoard in noticeBoards)
+            {
+                <tr>
+                    <td>
+                        <h5>@noticeBoard.NoticeTitle</h5>
+                    </td>
+                    <td>
+                        <h5>@noticeBoard.NoticeDescription</h5>
+                    </td>
+                    <td>
+                        <h5>@noticeBoard.VideoUrl</h5>
+                    </td>
+                    <td class="">
+                        <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@noticeBoard.Id">
+                            <button type="submit" class="btn btn-danger mx-1">Delete</button>
+                            <button class="btn btn-primary mx-1">Detail</button>
+                            <a asp-action="update" asp-route-id="@noticeBoard.Id" class="btn btn-warning mx-1">Update</a>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
