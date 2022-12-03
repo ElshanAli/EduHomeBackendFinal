@@ -1,9 +1,12 @@
-﻿
-namespace BackendFinalProjectEduHome.DAL.Entity
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace BackendFinalProjectEduHome.Areas.Admin.ViewModels
 {
-    public class Course : Entity
+    public class CourseUpdateViewModel
     {
-        public string ImageUrl { get; set; }
+        public int Id { get; set; }
+        public string? ImageUrl { get; set; }
+        public IFormFile? Image { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string About { get; set; }
@@ -19,6 +22,6 @@ namespace BackendFinalProjectEduHome.DAL.Entity
         public string Assesments { get; set; }
         public int CourseFee { get; set; }
         public int? CategoryId { get; set; }
-        public Category Category { get; set; }
+        public List<SelectListItem>? Categories { get; set; }
     }
 }

@@ -17,7 +17,6 @@ namespace BackendFinalProjectEduHome.DAL
         public DbSet<WelcomeEdu> WelcomeEdu { get; set; }
         public DbSet<NoticeBoard> NoticeBoards { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Feature> Features { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
     }

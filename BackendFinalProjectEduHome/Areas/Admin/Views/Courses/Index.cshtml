@@ -1,4 +1,4 @@
-﻿@model CourseFeatureViewModel
+﻿@model IEnumerable<Course>
 
 @{
 
@@ -33,7 +33,7 @@
             </thead>
             <tbody>
 
-            @foreach (Course course in Model.Courses)
+            @foreach (Course course in Model)
             {
                 <tr>
                     <td>
@@ -45,10 +45,10 @@
                     <td>
                         <h5>@course.Description</h5>
                     </td>
-                   @* <td>
+                   <td>
                         <h5>@course.Category.Name</h5>
-                    </td>*@
-                    <td class="">
+                    </td>
+                   <td class="">
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@course.Id">
                             <button type="submit" class="btn btn-danger mx-1">Delete</button>
                             <button class="btn btn-primary mx-1">Detail</button>
@@ -61,5 +61,4 @@
         </tbody>
     </table>
 </div>
-
 

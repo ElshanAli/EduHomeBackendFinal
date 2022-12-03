@@ -33,7 +33,8 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var categories = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
+            var categories = await _dbContext.Categories
+                .FirstOrDefaultAsync(c => c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
 
             if (categories != null)
             {
@@ -58,7 +59,8 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (id is null) return BadRequest();
 
-            var categories = await _dbContext.Categories.Where(c => !c.IsDeleted && c.Id == id).FirstOrDefaultAsync();
+            var categories = await _dbContext.Categories
+                .Where(c => !c.IsDeleted && c.Id == id).FirstOrDefaultAsync();
 
             if (categories is null) return NotFound();
 
@@ -82,8 +84,9 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             var categories = await _dbContext.Categories.FindAsync(id);
 
             if (categories is null) return NotFound();
-           
-            var existCategories = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
+
+            var existCategories = await _dbContext.Categories
+                .FirstOrDefaultAsync(c => c.Id != id && c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
 
             if (existCategories is not null)
             {
@@ -102,11 +105,11 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id is null) return BadRequest();
+            if (id is null) return BadRequest();
 
             var categories = await _dbContext.Categories.FindAsync(id);
 
-            if(categories is null) return NotFound();
+            if (categories is null) return NotFound();
 
             if (categories.Id != id) return BadRequest();
 

@@ -1,10 +1,21 @@
-﻿@model CourseCreateViewModel
+﻿@model CourseUpdateViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 
+@section Styles
+    {
+    <style>
+        .sliderImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
 
-<h1 class="text text-success">Create course</h1>
+<h1 class="text text-success">Update course</h1>
 <div class="alert alert-danger" asp-validation-summary="All"></div>
 <form method="post" class="mt-2" enctype="multipart/form-data">
     <div class="mb-2">
@@ -12,8 +23,28 @@
         <input asp-for="@Model.Image" accept="image/*" class="form-control">
         <span class="mt-2 text text-danger" asp-validation-for="@Model.Image"></span>
     </div>
+    <div class="imagesTable">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img class="sliderImage" src="~/assets/img/course/@Model.ImageUrl">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger removeProductImage" data-id="@Model.Id">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="mb-2">
-        <label asp-for="@Model.Title" class="form-label">Name</label>
+        <label asp-for="@Model.Title" class="form-label">Course Name</label>
         <input asp-for="@Model.Title" class="form-control">
         <span class="mt-2 text text-danger" asp-validation-for="@Model.Title"></span>
     </div>
