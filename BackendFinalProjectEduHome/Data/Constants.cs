@@ -11,5 +11,7 @@
         public static string SettingsPath;
         public static string WelcomeEduPath;
         public static string CoursePath;
+
+        public const string AdminRole = "Admin";
     }
 }

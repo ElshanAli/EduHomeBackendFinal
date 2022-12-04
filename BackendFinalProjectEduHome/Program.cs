@@ -1,12 +1,14 @@
 using BackendFinalProjectEduHome.DAL;
+using BackendFinalProjectEduHome.DAL.Entities;
 using BackendFinalProjectEduHome.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendFinalProjectEduHome
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +18,27 @@ namespace BackendFinalProjectEduHome
             builder.Services.AddDbContext<EduHomeDbContext>(options =>
             {
 
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                 
+                    builder=>
+                    {
+                        builder.MigrationsAssembly(nameof(BackendFinalProjectEduHome));
+                    } );
             });
+
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<EduHomeDbContext>().AddDefaultTokenProviders(); 
+
+            builder.Services.Configure<AdminUser>(builder.Configuration.GetSection("AdminUser"));
 
             Constants.RootPath = builder.Environment.WebRootPath;
             Constants.SliderPath = Path.Combine(Constants.RootPath, "assets", "img", "slider");
@@ -44,8 +64,18 @@ namespace BackendFinalProjectEduHome
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+
+                var dataInitializer = new DataInitializer(serviceProvider);
+
+                await dataInitializer.SeedData();
+            }
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -62,7 +92,7 @@ namespace BackendFinalProjectEduHome
 
             
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

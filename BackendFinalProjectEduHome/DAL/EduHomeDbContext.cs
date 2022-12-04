@@ -1,9 +1,11 @@
-﻿using BackendFinalProjectEduHome.DAL.Entity;
+﻿using BackendFinalProjectEduHome.DAL.Entities;
+using BackendFinalProjectEduHome.DAL.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendFinalProjectEduHome.DAL
 {
-    public class EduHomeDbContext : DbContext
+    public class EduHomeDbContext : IdentityDbContext<User>
     {
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options) { }
 
