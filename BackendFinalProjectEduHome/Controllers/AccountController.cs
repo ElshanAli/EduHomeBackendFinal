@@ -44,7 +44,6 @@ namespace BackendFinalProjectEduHome.Controllers
             }
 
             if (!string.IsNullOrEmpty(model.ReturnUrl)) return Redirect(model.ReturnUrl);
-
             return RedirectToAction("Index", "Home");
         }
 

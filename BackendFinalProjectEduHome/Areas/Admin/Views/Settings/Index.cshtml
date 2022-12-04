@@ -36,9 +36,27 @@
                 </td>
             </tr>
             <tr>
+                <th>Phone Logo</th>
+                <td>
+                    <img src="~/assets/img/setting/@Model.PhoneImage" alt="logo" />
+                </td>
+            </tr>
+            <tr>
                 <th>Second Phone</th>
                 <td>
                     <a href="tel:@Model.SecondPhone">@Model.SecondPhone</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>
+                    <a href="@Model.WebSite">@Model.WebSite</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Website Logo</th>
+                <td>
+                    <img src="~/assets/img/setting/@Model.WebsiteImage" alt="logo" />
                 </td>
             </tr>
             @if (Model.SecondPhone != null && Model.SecondPhone != string.Empty)
@@ -73,6 +91,12 @@
                     <div>
                         @Html.Raw(Model.GoogleMapCode)
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Address Logo</th>
+                <td>
+                    <img src="~/assets/img/setting/@Model.AdressImage" alt="logo" />
                 </td>
             </tr>
             @if (Model.FacebookLink != null && Model.FacebookLink != string.Empty)

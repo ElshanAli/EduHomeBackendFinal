@@ -1,8 +1,10 @@
 ﻿using BackendFinalProjectEduHome.DAL;
 using BackendFinalProjectEduHome.DAL.Entities;
+using BackendFinalProjectEduHome.DAL.Entity;
 using BackendFinalProjectEduHome.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendFinalProjectEduHome.Controllers
 {
@@ -19,22 +21,47 @@ namespace BackendFinalProjectEduHome.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = new ContactViewModel();
+            var contactSettings = await _dbContext.Settings.Where(s => !s.IsDeleted).FirstOrDefaultAsync();
 
-            if (User.Identity.IsAuthenticated)
+            var settings = new ContactSettingsViewModel
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Phone = contactSettings.Phone,
+                PhoneImage = contactSettings.PhoneImage,
+                Address = contactSettings.Address,
+                AdressImage = contactSettings.AdressImage,
+                WebSite = contactSettings.WebSite,
+                WebsiteImage = contactSettings.WebsiteImage,
+            };
 
-                model.ContactMessage = new ContactMessageViewModel
-                {
-                    Name = model.ContactMessage.Name,
-                    Email = model.ContactMessage.Email,
-                    Subject = model.ContactMessage.Subject,
-                    Message = model.ContactMessage.Message,
-                };
-            }
+
+            var model = new ContactViewModel
+            {
+                ContactSettings = settings,
+                ContactMessage = new(),
+            };
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendMessage(ContactMessageViewModel contactMessage)
+        {
+            if (!ModelState.IsValid) return View(viewName: nameof(Index), contactMessage);
+            var message = new ContactMessage
+            {
+                Name = contactMessage.Name,
+                Email = contactMessage.Email,
+                Subject = contactMessage.Subject,
+                Message = contactMessage.Message,
+                IsRead = false
+            };
+
+            await _dbContext.ContactMessages.AddAsync(message);
+
+            await _dbContext.SaveChangesAsync();  
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }

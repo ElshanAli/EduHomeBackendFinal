@@ -37,15 +37,18 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 HeaderLogo = dbSetting.HeaderLogo,
                 FooterLogo = dbSetting.FooterLogo,
                 Phone = dbSetting.Phone,
+                PhoneImage = dbSetting.PhoneImage,
                 SecondPhone = dbSetting.SecondPhone,
                 FacebookLink = dbSetting.FacebookLink,
                 PinterestLink = dbSetting.PinterestLink,
                 TwitterLink = dbSetting.TwitterLink,
                 VimeoLink = dbSetting.VimeoLink,
                 Address = dbSetting.Address,
+                AddressImage = dbSetting.AdressImage,
                 GoogleMapCode = dbSetting.GoogleMapCode,
                 FooterDescription = dbSetting.FooterDescription,
                 WebSite = dbSetting.WebSite,
+                WebSiteImage = dbSetting.WebsiteImage,
                 Email = dbSetting.Email,
                 SecondEmail = dbSetting.SecondEmail,
                 GreetingText = dbSetting.GreetingText,
@@ -114,6 +117,81 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
                 var unicalName = await model.FooterLogoImage.Generatefile(Constants.SettingsPath);
                 dbSetting.FooterLogo = unicalName;
+            }
+
+            if (model.FormPhoneImage != null)
+            {
+                if (!model.FormPhoneImage.IsImage())
+                {
+                    ModelState.AddModelError("", "Must be selected image");
+                    return View(model);
+                }
+
+                if (!model.FormPhoneImage.IsAllowedSize(7))
+                {
+                    ModelState.AddModelError("", "Image size can be max 7 mb");
+                    return View(model);
+                }
+
+                if (dbSetting.PhoneImage is null) return NotFound();
+
+                var phonePath = Path.Combine(Constants.RootPath, "assets", "img", "setting", dbSetting.PhoneImage);
+
+                if (System.IO.File.Exists(phonePath))
+                    System.IO.File.Delete(phonePath);
+
+                var unicalName = await model.FormPhoneImage.Generatefile(Constants.SettingsPath);
+                dbSetting.PhoneImage = unicalName;
+            }
+
+            if (model.FormAddressImage != null)
+            {
+                if (!model.FormAddressImage.IsImage())
+                {
+                    ModelState.AddModelError("", "Must be selected image");
+                    return View(model);
+                }
+
+                if (!model.FormAddressImage.IsAllowedSize(7))
+                {
+                    ModelState.AddModelError("", "Image size can be max 7 mb");
+                    return View(model);
+                }
+
+                if (dbSetting.AdressImage is null) return NotFound();
+
+                var addressPath = Path.Combine(Constants.RootPath, "assets", "img", "setting", dbSetting.AdressImage);
+
+                if (System.IO.File.Exists(addressPath))
+                    System.IO.File.Delete(addressPath);
+
+                var unicalName = await model.FormAddressImage.Generatefile(Constants.SettingsPath);
+                dbSetting.AdressImage = unicalName;
+            }
+
+            if (model.FormWebsiteImage != null)
+            {
+                if (!model.FormWebsiteImage.IsImage())
+                {
+                    ModelState.AddModelError("", "Must be selected image");
+                    return View(model);
+                }
+
+                if (!model.FormWebsiteImage.IsAllowedSize(7))
+                {
+                    ModelState.AddModelError("", "Image size can be max 7 mb");
+                    return View(model);
+                }
+
+                if (dbSetting.WebsiteImage is null) return NotFound();
+
+                var websitePath = Path.Combine(Constants.RootPath, "assets", "img", "setting", dbSetting.WebsiteImage);
+
+                if (System.IO.File.Exists(websitePath))
+                    System.IO.File.Delete(websitePath);
+
+                var unicalName = await model.FormWebsiteImage.Generatefile(Constants.SettingsPath);
+                dbSetting.WebsiteImage = unicalName;
             }
 
             dbSetting.Phone = model.Phone;

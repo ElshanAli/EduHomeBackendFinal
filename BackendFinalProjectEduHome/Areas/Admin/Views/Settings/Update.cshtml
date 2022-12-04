@@ -23,6 +23,27 @@
             <input asp-for="Phone" class="form-control" placeholder="Enter the teacher fullname...">
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
+        <div class="imagesTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Phone Logo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img class="sliderImage" src="~/assets/img/setting/@Model.PhoneImage">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label asp-for="FormPhoneImage">Choose Header Logo Images</label>
+            <input asp-for="FormPhoneImage" class="form-control" placeholder="Choose Images" accept="image/*">
+            <span asp-validation-for="FormPhoneImage" class="text-danger"></span>
+        </div>
         <div class="form-group">
             <label asp-for="SecondPhone">SecondPhone</label>
             <input asp-for="SecondPhone" class="form-control" placeholder="Enter the the profession...">
@@ -109,7 +130,27 @@
             <input asp-for="Address" class="form-control" placeholder="Enter the address...">
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
-
+        <div class="imagesTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Address Logo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img class="sliderImage" src="~/assets/img/setting/@Model.AddressImage">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label asp-for="FormAddressImage">Address</label>
+            <input asp-for="FormAddressImage" class="form-control" placeholder="Enter the address...">
+            <span asp-validation-for="FormAddressImage" class="text-danger"></span>
+        </div>
         <div class="form-group">
             <label asp-for="FooterDescription">Footer Description</label>
             <input asp-for="FooterDescription" class="form-control" placeholder="Enter the footer description...">
@@ -119,6 +160,27 @@
             <label asp-for="WebSite">Web Site</label>
             <input asp-for="WebSite" class="form-control" placeholder="Enter the web site link...">
             <span asp-validation-for="WebSite" class="text-danger"></span>
+        </div>
+            <div class="imagesTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Website Logo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img class="sliderImage" src="~/assets/img/setting/@Model.WebSiteImage">
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        <div class="form-group">
+            <label asp-for="FormWebsiteImage">Web Site</label>
+            <input asp-for="FormWebsiteImage" class="form-control" placeholder="Enter the web site link...">
+            <span asp-validation-for="FormWebsiteImage" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="GreetingText">GreetingText</label>

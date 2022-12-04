@@ -72,21 +72,27 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
             {
-                ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
+                ModelState.AddModelError("StartDate", "Start Date must be future");
                 return View(model);
             }
 
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
+            if (model.StartDate.ToString("yyyy-MM-dd 07:00") != model.StartDate.ToString("yyyy-MM-dd 20:00"))
             {
-                ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
+                ModelState.AddModelError("", "You must select this time slot From: 07:00 To: 20:00");
                 return View(model);
             }
 
-            if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("", "Start Date must be earlier than End Date");
-                return View(model);
-            }
+            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
+            //    return View(model);
+            //}
+
+            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
+            //    return View(model);
+            //}
 
             if (!model.Image.IsImage())
             {

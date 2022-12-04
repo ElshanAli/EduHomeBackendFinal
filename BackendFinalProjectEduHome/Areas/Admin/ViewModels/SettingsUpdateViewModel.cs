@@ -11,6 +11,8 @@ namespace BackendFinalProjectEduHome.Areas.Admin.ViewModels
         public IFormFile? FooterLogoImage { get; set; }
         [Phone]
         public string Phone { get; set; }
+        public IFormFile? FormPhoneImage { get; set; }
+        public string? PhoneImage { get; set; }
         [Phone]
         public string? SecondPhone { get; set; }
         [DataType(DataType.Url)]
@@ -22,10 +24,14 @@ namespace BackendFinalProjectEduHome.Areas.Admin.ViewModels
         [DataType(DataType.Url)]
         public string? VimeoLink { get; set; }
         public string Address { get; set; }
+        public IFormFile? FormAddressImage { get; set; }
+        public string? AddressImage { get; set; }
         public string GoogleMapCode { get; set; }
         public string FooterDescription { get; set; }
         [DataType(DataType.Url)]
         public string WebSite { get; set; }
+        public IFormFile? FormWebsiteImage { get; set; }
+        public string? WebSiteImage { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         [EmailAddress]
