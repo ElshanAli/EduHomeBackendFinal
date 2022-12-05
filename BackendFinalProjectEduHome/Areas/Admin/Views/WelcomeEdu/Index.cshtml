@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WelcomeEdu>
+﻿@using System.Web
+@model IEnumerable<WelcomeEdu>
 
 @{
     IEnumerable<WelcomeEdu> welcomeEdus = Model;
@@ -38,10 +39,13 @@
                         <img class="blogImage" src="~/assets/img/welcomeedu/@welcomeEdu.ImageUrl">
                     </td>
                     <td>
-                        <h5>@welcomeEdu.Title</h5>
+                        <h5>@Html.Raw(HttpUtility.HtmlDecode(@welcomeEdu.Title));</h5>
                     </td>
                     <td>
-                        <h5>@welcomeEdu.Description</h5>
+                        @{
+                            string description = (welcomeEdu.Description.Length < 20) ? welcomeEdu.Description : welcomeEdu.Description.Substring(0, 20) + "...";
+                        }
+                        <h5>@description</h5>
                     </td>
                     <td class="">
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@welcomeEdu.Id">

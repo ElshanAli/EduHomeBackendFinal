@@ -10,5 +10,6 @@ namespace BackendFinalProjectEduHome.ViewModels
         public string WebsiteImage { get; set; }
         public string Address { get; set; }
         public string AdressImage { get; set; }
+        public string GoogleMap { get; set; }
     }
 }

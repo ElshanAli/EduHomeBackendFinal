@@ -16,13 +16,13 @@ namespace BackendFinalProjectEduHome.Areas.Admin.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var message = await _dbContext.ContactMessages.ToListAsync();
+            var messages = await _dbContext.ContactMessages.OrderByDescending(m => m.Id).ToListAsync();
 
-            var isAllReadMessage = message.All(x => x.IsRead);
+            var isAllReadMessage = messages.All(x => x.IsRead);
 
             return View(new ContactMessageReadViewModel
             {
-                ContactMessages = message,
+                ContactMessages = messages,
                 IsAllReadMessage = isAllReadMessage
             });
         }

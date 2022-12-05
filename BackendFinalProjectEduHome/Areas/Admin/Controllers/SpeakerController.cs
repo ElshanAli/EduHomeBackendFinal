@@ -58,6 +58,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 Lastname = model.Lastname,
                 ImageUrl = unicalName,
                 Position = model.Position,
+                Company = model.Company
             };
 
             await _dbContext.Speakers.AddAsync(speakers);
@@ -83,7 +84,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 Lastname = speakers.Lastname,
                 ImageUrl = speakers.ImageUrl,
                 Position = speakers.Position,
-
+                Company = speakers.Company
             };
 
             return View(speakerViewModel);
@@ -137,6 +138,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             speakers.Firstname = model.Firstname;
             speakers.Lastname = model.Lastname;
             speakers.Position = model.Position;
+            speakers.Company = model.Company;
 
             await _dbContext.SaveChangesAsync();
 

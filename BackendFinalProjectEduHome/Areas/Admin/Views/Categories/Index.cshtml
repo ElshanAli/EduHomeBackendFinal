@@ -2,24 +2,22 @@
 @{
     IEnumerable<Category> categories = Model;
 }
-
-    <h4 class="card-title">Category Table</h4>
-    <a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
-    <div class="table-responsive mt-4">
-        <table class="table table-bordered text-center">
-            <thead>
-                <tr>
-                    <th>Category Name</th>
+<h4 class="card-title">Category Table</h4>
+<a asp-action="create" class="btn btn-success"><i class="fa-solid fa-plus" style="font-size:16px; padding-right:5px;"></i>  Add</a>
+<div class="table-responsive mt-4">
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Category Name</th>
                 <th>Courses Of The Category</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
 
             @foreach (Category category in categories)
             {
                 <tr>
-                   
                     <td>
                         <h5>@category.Name</h5>
                     </td>
@@ -32,7 +30,6 @@
                     </td>
                 </tr>
             }
-
         </tbody>
     </table>
 </div>

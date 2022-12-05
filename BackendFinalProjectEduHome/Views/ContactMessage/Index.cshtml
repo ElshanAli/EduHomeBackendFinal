@@ -1,4 +1,4 @@
-﻿@using BackendFinalProjectEduHome.ViewModels
+﻿@using System.Web
 @model ContactViewModel
 <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
@@ -23,7 +23,7 @@
     <div class="google-map-area">
         <!--  Map Section -->
         <div id="contacts" class="map-area">
-            <div id="googleMap" style="width:100%;height:440px;"></div>
+            <div id="googleMap" style="width:100%;height:440px;">@Html.Raw(HttpUtility.HtmlDecode(@Model.ContactSettings.GoogleMap));</div>
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
                         <div class="contact-add">
                             <h3>address</h3>
                             <p>@Model.ContactSettings.Address</p>
-                            
+
                         </div>
                     </div>
                     <div class="single-contact mb-65">
@@ -58,7 +58,7 @@
                         <div class="contact-add">
                             <h3>address</h3>
                             <p>@Model.ContactSettings.WebSite</p>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -71,11 +71,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p>Name</p>
-                                <input asp-for="ContactMessage.Name" >
+                                <input asp-for="ContactMessage.Name">
                             </div>
                             <div class="col-md-12">
                                 <p>Email</p>
-                                <input asp-for="ContactMessage.Email" >
+                                <input asp-for="ContactMessage.Email">
                             </div>
                             <div class="col-md-12">
                                 <p>Subject</p>
@@ -85,7 +85,6 @@
                             </div>
                         </div>
                         <button type="submit" data-text="send" class="reply-btn design-for-button">send message</button>
-                        @*<a  href="#" data-text="send"><span></span></a>*@
                     </form>
                 </div>
             </div>

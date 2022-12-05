@@ -9,7 +9,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="NoticeTitle">Notice Board Title</label>
-        <input asp-for="NoticeTitle" class="form-control" placeholder="Enter the notice board title...">
+        <textarea asp-for="NoticeTitle" class="form-control textEditor" placeholder="Enter the notice board title..."></textarea>
         <span asp-validation-for="NoticeTitle" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -26,3 +26,8 @@
     <button type="submit" class="btn btn-primary mr-2">Submit</button>
     <button class="btn btn-light" asp-action="Index">Cancel</button>
 </form>
+
+
+@section Scripts{
+    <partial name="_CKEScriptsPartial" />
+}

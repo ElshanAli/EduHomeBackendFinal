@@ -53,31 +53,31 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
-            {
-                ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
-                return View(model);
-            }
-
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-                return View(model);
-            }
-
-            if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("", "Start Date must be earlier than End Date");
-                return View(model);
-            }
-
-            //if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
-            //    || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
-            //    || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
+            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
             //{
-            //    ModelState.AddModelError("", "Start Date and End Date must be same day");
+            //    ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
             //    return View(model);
             //}
+
+            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
+            //    return View(model);
+            //}
+
+            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
+            //    return View(model);
+            //}
+
+            if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
+                || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
+                || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
+            {
+                ModelState.AddModelError("", "Start Date and End Date must be same day");
+                return View(model);
+            }
 
             if (!model.Image.IsImage())
             {
@@ -203,31 +203,31 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
-            {
-                ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
-                return View(model);
-            }
-
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-                return View(model);
-            }
-
-            if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("", "Start Date must be earlier than End Date");
-                return View(model);
-            }
-
-            //if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
-            //    || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
-            //    || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
+            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
             //{
-            //    ModelState.AddModelError("", "Start Date and End Date must be same day");
+            //    ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
             //    return View(model);
             //}
+
+            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
+            //    return View(model);
+            //}
+
+            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
+            //{
+            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
+            //    return View(model);
+            //}
+
+            if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
+                || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
+                || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
+            {
+                ModelState.AddModelError("", "Start Date and End Date must be same day");
+                return View(model);
+            }
 
             var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
 
@@ -299,6 +299,20 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null) return NotFound();
+
+            var events = await _dbContext.Events
+                .Where(c => !c.IsDeleted && c.Id == id)
+                .Include(cat => cat.EventSpeakers).ThenInclude(s=>s.Speaker)
+                .FirstOrDefaultAsync();
+
+            if (events is null) return NotFound();
+
+            return View(events);
         }
 
         public async Task<IActionResult> Delete(int? id)

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Slider>
+﻿@using System.Web
+@model IEnumerable<Slider>
 @{
     IEnumerable<Slider> sliders = Model;
 }
@@ -35,7 +36,7 @@
                     <td>
                         <img class="sliderImage" src="~/assets/img/slider/@slider.ImageUrl">
                     </td>
-                    <td>@Html.Raw(slider.Title)</td>
+                    <td>@Html.Raw(HttpUtility.HtmlDecode(@slider.Title));</td>
                     @{
                         string subtitle = (slider.Subtitle.Length < 20) ? slider.Subtitle : slider.Subtitle.Substring(0, 20) + "...";
                     }

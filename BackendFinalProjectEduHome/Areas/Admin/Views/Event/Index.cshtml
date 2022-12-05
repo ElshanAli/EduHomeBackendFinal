@@ -73,7 +73,7 @@
                     <td class="">
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@holiday.Id">
                             <button type="submit" class="btn btn-danger mx-1">Delete</button>
-                            <a href="#" class="btn btn-primary mx-1">Detail</a>
+                            <a asp-action="details" asp-route-id="@holiday.Id" class="btn btn-primary mx-1">Detail</a>
                             <a asp-action="update" asp-route-id="@(holiday.Id)" class="btn btn-warning mx-1">Update</a>
                         </form>
                     </td>

@@ -22,7 +22,7 @@ namespace BackendFinalProjectEduHome.Controllers
         public async Task<IActionResult> Index()
         {
             var contactSettings = await _dbContext.Settings.Where(s => !s.IsDeleted).FirstOrDefaultAsync();
-
+           
             var settings = new ContactSettingsViewModel
             {
                 Phone = contactSettings.Phone,
@@ -31,9 +31,9 @@ namespace BackendFinalProjectEduHome.Controllers
                 AdressImage = contactSettings.AdressImage,
                 WebSite = contactSettings.WebSite,
                 WebsiteImage = contactSettings.WebsiteImage,
+                GoogleMap = contactSettings.GoogleMapCode,
             };
-
-
+            
             var model = new ContactViewModel
             {
                 ContactSettings = settings,

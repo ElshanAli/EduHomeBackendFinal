@@ -1,6 +1,7 @@
 ﻿using BackendFinalProjectEduHome.DAL;
 using BackendFinalProjectEduHome.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BackendFinalProjectEduHome.Controllers
@@ -13,9 +14,9 @@ namespace BackendFinalProjectEduHome.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var slider = _dbContext.Sliders.ToList();
+            var slider = await _dbContext.Sliders.ToListAsync();
             var homeViewModel = new HomeViewModel
             {
                 Sliders = slider,

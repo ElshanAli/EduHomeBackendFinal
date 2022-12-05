@@ -1,0 +1,8 @@
+﻿@model ContactMessageReadViewModel
+@{
+    ViewData["Title"] = "Read";
+    var message = Model.ContactMessage;
+}
+
+<h2>@message.Name</h2>
+<h2>@message.Message</h2>

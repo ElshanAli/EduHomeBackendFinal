@@ -6,5 +6,6 @@
         public string Lastname { get; set; }
         public IFormFile Image { get; set; }
         public string Position { get; set; }
+        public string Company { get; set; }
     }
 }

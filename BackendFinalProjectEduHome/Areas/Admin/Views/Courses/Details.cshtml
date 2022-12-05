@@ -1,0 +1,144 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<style>
+    td img {
+        width: 150px !important;
+        height: 150px !important;
+        object-fit: contain !important;
+        border-radius: 0px !important;
+    }
+</style>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody class="align-middle">
+            <tr>
+                <th>Image</th>
+                <td>
+                    <img src="~/assets/img/course/@Model.ImageUrl" alt="logo" />
+                </td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>
+                    <h5>
+                        @Model.Title
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <h5>
+                        @Model.Description
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>
+                    <h5>
+                        @Model.About
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Certification</th>
+                <td>
+                    <h5>
+                        @Model.Certification
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>How To Apply</th>
+                <td>
+                    <h5>
+                        @Model.HowToApply
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>
+                    <h5>
+                        @Model.Category.Name
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Start Date</th>
+                <td>
+                    <h5>
+                        @Model.StartDate
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>
+                    <h5>
+                        @Model.Duration
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Class Duration</th>
+                <td>
+                    <h5>
+                        @Model.ClassDuration
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Skill Level</th>
+                <td>
+                    <h5>
+                        @Model.SkillLevel
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td>
+                    <h5>
+                        @Model.Language
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Assesments</th>
+                <td>
+                    <h5>
+                        @Model.Assesments
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Student Count</th>
+                <td>
+                    <h5>
+                        @Model.StudentCount
+                    </h5>
+                </td>
+            </tr>
+            <tr>
+                <th>Course Fee</th>
+                <td>
+                    <h5>
+                        @Model.CourseFee
+                    </h5>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-block btn-warning font-weight-bold" style="letter-spacing:2px">Return To Index</a>
+</div>

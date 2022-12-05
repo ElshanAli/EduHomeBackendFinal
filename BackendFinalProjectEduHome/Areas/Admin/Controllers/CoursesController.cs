@@ -274,6 +274,17 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null) return NotFound();
+
+            var courses = await _dbContext.Courses.Where(c => !c.IsDeleted && c.Id == id).Include(cat => cat.Category).FirstOrDefaultAsync();
+
+            if (courses is null) return NotFound();
+
+            return View(courses);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
