@@ -17,7 +17,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _dbContext.Categories.Where(c => !c.IsDeleted).ToListAsync();
+            var categories = await _dbContext.Categories.Where(c => !c.IsDeleted).OrderByDescending(c => c.Id).ToListAsync();
 
             return View(categories);
         }
@@ -101,8 +101,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null) return BadRequest();

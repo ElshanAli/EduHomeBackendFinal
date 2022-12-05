@@ -8,9 +8,9 @@
 <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="NoticeTitle">Notice Board Title</label>
-        <textarea asp-for="NoticeTitle" class="form-control textEditor" placeholder="Enter the notice board title..."></textarea>
-        <span asp-validation-for="NoticeTitle" class="text-danger"></span>
+        <label asp-for="Date">Notice Board Title</label>
+        <input asp-for="Date" class="form-control textEditor" placeholder="Enter the notice board title...">
+        <span asp-validation-for="Date" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="NoticeDescription">Notice Board Description</label>
@@ -27,7 +27,3 @@
     <button class="btn btn-light" asp-action="Index">Cancel</button>
 </form>
 
-
-@section Scripts{
-    <partial name="_CKEScriptsPartial" />
-}

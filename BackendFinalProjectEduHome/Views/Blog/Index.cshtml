@@ -1,0 +1,51 @@
+﻿<div class="banner-area-wrapper">
+    <div class="banner-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content-wrapper">
+                        <div class="banner-content">
+                            <h2>blog</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+<!-- Blog Start -->
+<div class="blog-area pt-150 pb-150">
+    <div class="container">
+        <div class="row" id="blogRows">
+            <input type="hidden" id="blogVount" value="@ViewBag.blogCount" />
+            <partial name="_BlogPartialView" model="Model" />
+        </div>
+        <div style="text-align:center; margin-top:50px;">
+            <button id="loadMore" class="btn btn-primary btn-lg">Load More</button>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            var skip = 3;
+            $(document).on('click', '#loadMore', function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/blog/partial?skip=" + skip,
+                    success: function (html) {
+                        $("#blogRows").append(html);
+                        skip += 3;
+                        var productCount = $("#blogRows").val();
+                        if (skip >= productCount)
+                            $("#loadMore").remove();
+                    }
+                });
+            })
+        })
+    </script>
+
+}

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Course>
+﻿@model List<Course>
 
 @{
 
@@ -26,7 +26,6 @@
                 <tr>
                     <th>Image</th>
                     <th>Title</th>
-                    <th>Description</th>
                     <th>Category</th>
                     <th>Actions</th>
                 </tr>
@@ -41,9 +40,6 @@
                     </td>
                     <td>
                         <h5>@course.Title</h5>
-                    </td>
-                    <td>
-                        <h5>@course.Description</h5>
                     </td>
                    <td>
                         <h5>@course.Category.Name</h5>

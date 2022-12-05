@@ -21,7 +21,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Course> dbCourse = await _dbContext.Courses.Include(c => c.Category).OrderByDescending(c=>c.Id).ToListAsync();
+            var dbCourse = await _dbContext.Courses.Where(c=>!c.IsDeleted).Include(c => c.Category).OrderByDescending(c=>c.Id).ToListAsync();
 
             return View(dbCourse);
         }
@@ -49,12 +49,13 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseCreateViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            
 
             var categories = await _dbContext.Categories
                 .Where(c => !c.IsDeleted)
                 .Include(c => c.Courses)
                 .ToListAsync();
+            if (!ModelState.IsValid) return View(model);
 
             var categoryListItem = new List<SelectListItem>
             {
@@ -75,24 +76,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 ModelState.AddModelError("StartDate", "Start Date must be future");
                 return View(model);
             }
-
-            if (model.StartDate.ToString("yyyy-MM-dd 07:00") != model.StartDate.ToString("yyyy-MM-dd 20:00"))
-            {
-                ModelState.AddModelError("", "You must select this time slot From: 07:00 To: 20:00");
-                return View(model);
-            }
-
-            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-            //    return View(model);
-            //}
-
-            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
-            //    return View(model);
-            //}
 
             if (!model.Image.IsImage())
             {
@@ -122,7 +105,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             createdCourse.Certification = model.Certification;
             createdCourse.Duration = model.Duration;
             createdCourse.StartDate = model.StartDate;
-            createdCourse.EndDate = model.EndDate;
             createdCourse.ClassDuration = model.ClassDuration;
             createdCourse.SkillLevel = model.SkillLevel;
             createdCourse.Language = model.Language;
@@ -168,7 +150,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 Certification = dbCourse.Certification,
                 Duration = dbCourse.Duration,
                 StartDate = dbCourse.StartDate,
-                EndDate = dbCourse.EndDate,
                 ClassDuration = dbCourse.ClassDuration,
                 SkillLevel = dbCourse.SkillLevel,
                 Language = dbCourse.Language,
@@ -206,21 +187,10 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
             {
-                ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
+                ModelState.AddModelError("StartDate", "Start Date must be future");
                 return View(model);
             }
 
-            if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-                return View(model);
-            }
-
-            if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            {
-                ModelState.AddModelError("", "Start Date must be earlier than End Date");
-                return View(model);
-            }
 
             if (model.Image is not null)
             {
@@ -258,7 +228,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             dbCourse.Description = model.Description;
             dbCourse.Duration = model.Duration;
             dbCourse.StartDate = model.StartDate;
-            dbCourse.EndDate = model.EndDate;
             dbCourse.ClassDuration = model.ClassDuration;
             dbCourse.CourseFee = model.CourseFee;
             dbCourse.Assesments = model.Assesments;
@@ -308,5 +277,8 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+       
     }
 }
+

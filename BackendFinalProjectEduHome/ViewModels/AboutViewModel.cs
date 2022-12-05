@@ -4,7 +4,7 @@ namespace BackendFinalProjectEduHome.ViewModels
 {
     public class AboutViewModel
     {
-        public NoticeBoard NoticeBoards { get; set; } = new NoticeBoard();
+        public List<NoticeBoard> NoticeBoards { get; set; } = new List<NoticeBoard>();
         public WelcomeEdu WelcomeEdu { get; set; } = new WelcomeEdu();
     }
 }

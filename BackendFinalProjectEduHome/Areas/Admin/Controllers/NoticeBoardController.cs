@@ -38,7 +38,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             var noticeBoards = new NoticeBoard
             {
-                NoticeTitle = model.NoticeTitle,
+                Date = model.Date,
                 NoticeDescription = model.NoticeDescription,
                 VideoUrl = model.VideoUrl,
             };
@@ -62,7 +62,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             var noticeBoardUpdateViewModel = new NoticeBoardUpdateViewModel
             {
                 Id = dbNoticeBoard.Id,
-                NoticeTitle = dbNoticeBoard.NoticeTitle,
+                Date = dbNoticeBoard.Date,
                 VideoUrl = dbNoticeBoard.VideoUrl,
                 NoticeDescription = dbNoticeBoard.NoticeDescription,
             };
@@ -82,7 +82,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             if (dbNoticeBoard is null) return NotFound(); 
 
-            dbNoticeBoard.NoticeTitle = model.NoticeTitle;  
+            dbNoticeBoard.Date = model.Date;  
             dbNoticeBoard.VideoUrl = model.VideoUrl;
             dbNoticeBoard.NoticeDescription = model.NoticeDescription;
 

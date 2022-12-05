@@ -23,7 +23,8 @@
             {
                 <tr>
                     <td>
-                        @Html.Raw(noticeBoard.NoticeTitle)
+
+                        @noticeBoard.Date.ToString("dd, MMM yyy")
                     </td>
                     <td>
                         <h5>@noticeBoard.NoticeDescription</h5>

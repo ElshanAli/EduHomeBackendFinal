@@ -26,7 +26,7 @@
                     <th>Image</th>
                     <th>Created By</th>
                     <th>Title</th>
-                    <th>Subtitle</th>
+                    <th>Description</th>
                     <th>Created Time</th>
                     <th>Actions</th>
                 </tr>
@@ -45,9 +45,10 @@
                     <td>
                         <h5>@blog.Title</h5>
                     </td>
-                      <td>
-                        <h5>@blog.Description</h5>
-                    </td>
+                    @{
+                        string description = (blog.Description.Length < 20) ? blog.Description : blog.Description.Substring(0, 20) + "...";
+                    }
+                    <td> @description</td>
                     <td>
                         <h5 class="text-nowrap">@blog.CreatedDate.ToString("MM/dd/yyyy HH:mm")</h5>
                     </td>

@@ -1,0 +1,23 @@
+﻿@model List<Course>
+@section Styles
+    {
+    <style>
+        .sliderImage {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain !important;
+            border-radius: 0px !important;
+        }
+    </style>
+}
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a asp-action="Details" asp-route-id="@item?.Id">
+                <img style="width:120px;height:120px fit-content:contain" src="~/assets/img/course/@item?.ImageUrl" />
+                <span style="font-weight:bold">@item?.Title</span>
+            </a>
+        </li>
+    }
+</ul>

@@ -18,7 +18,7 @@ namespace BackendFinalProjectEduHome.Controllers
         {
 
 
-            var dbNoticeBoard = await _dbContext.NoticeBoards.Where(n => !n.IsDeleted).FirstOrDefaultAsync();
+            var dbNoticeBoard = await _dbContext.NoticeBoards.Where(n => !n.IsDeleted).ToListAsync();
             var dbWelcomeEdu = await _dbContext.WelcomeEdu.Where(w => !w.IsDeleted).FirstOrDefaultAsync();
             AboutViewModel model = new AboutViewModel()
             {
