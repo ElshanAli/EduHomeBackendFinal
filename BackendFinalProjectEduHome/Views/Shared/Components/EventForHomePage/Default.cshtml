@@ -1,0 +1,52 @@
+﻿@model List<Event>
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        @for (int i = 0; i < Model.Count; i += 2)
+        {
+            <div class="single-event mb-35">
+                <div class="event-date">
+                    <h3><a asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">@Model[i].StartDate.ToString("dd")<span>@Model[i].StartDate.ToString("MMM")</span></a></h3>
+                </div>
+                <div class="event-content text-left">
+                    <div class="event-content-left">
+                        <h4><a asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">@Model[i].Title</a></h4>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i>@Model[i].StartDate.ToString("hh:mm tt") - @Model[i].EndDate.ToString("hh:mm tt")</li>
+                            <li><i class="fa fa-map-marker"></i>@Model[i].Address</li>
+                        </ul>
+                    </div>
+                    <div class="event-content-right">
+                        <a class="default-btn" asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">join now</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <div class="col-md-6 hidden-sm hidden-xs">
+        @for (int i = 1; i < Model.Count; i += 2)
+        {
+            <div class="single-event mb-35">
+                <div class="event-date">
+                    <h3><a asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">@Model[i].StartDate.ToString("dd")<span>@Model[i].StartDate.ToString("MMM")</span></a></h3>
+                </div>
+                <div class="event-content text-left">
+                    <div class="event-content-left">
+                        <h4><a asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">@Model[i].Title</a></h4>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i>@Model[i].StartDate.ToString("hh:mm tt") - @Model[i].EndDate.ToString("hh:mm tt")</li>
+                            <li><i class="fa fa-map-marker"></i>@Model[i].Address</li>
+                        </ul>
+                    </div>
+                    <div class="event-content-right">
+                        <a class="default-btn" asp-controller="event" asp-action="details" asp-route-id="@Model[i].Id">join now</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

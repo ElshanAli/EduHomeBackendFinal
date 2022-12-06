@@ -17,9 +17,11 @@ namespace BackendFinalProjectEduHome.Controllers
         public async Task<IActionResult> Index()
         {
             var slider = await _dbContext.Sliders.ToListAsync();
+            var courses = await _dbContext.Courses.ToListAsync();
             var homeViewModel = new HomeViewModel
             {
                 Sliders = slider,
+                Courses = courses
             };
             return View(homeViewModel);
         }
