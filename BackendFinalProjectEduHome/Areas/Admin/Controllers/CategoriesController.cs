@@ -17,7 +17,11 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _dbContext.Categories.Where(c => !c.IsDeleted).OrderByDescending(c => c.Id).ToListAsync();
+            var categories = await _dbContext.Categories
+                .Where(c => !c.IsDeleted)
+                .Include(c => c.Courses)
+                .OrderByDescending(c => c.Id)
+                .ToListAsync();
 
             return View(categories);
         }

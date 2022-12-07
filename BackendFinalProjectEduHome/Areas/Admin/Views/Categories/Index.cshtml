@@ -21,6 +21,12 @@
                     <td>
                         <h5>@category.Name</h5>
                     </td>
+                    <td>
+                        @foreach (var course in category.Courses)
+                        {
+                            <h5>@course.Title</h5>
+                        }
+                    </td>
                     <td class="">
                         <form class="forms-sample text-nowrap " method="post" asp-action="Delete" asp-route-id="@category.Id">
                             <button type="submit" class="btn btn-danger mx-1">Delete</button>

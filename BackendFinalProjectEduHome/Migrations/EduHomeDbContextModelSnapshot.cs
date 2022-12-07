@@ -398,10 +398,16 @@ namespace BackendFinalProjectEduHome.Migrations
                     b.Property<string>("PinterestLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SecondAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecondEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondWebsite")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TwitterLink")

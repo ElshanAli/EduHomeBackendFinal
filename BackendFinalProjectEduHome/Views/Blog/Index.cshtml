@@ -17,8 +17,8 @@
 <!-- Blog Start -->
 <div class="blog-area pt-150 pb-150">
     <div class="container">
-        <div class="row" id="blogRows">
-            <input type="hidden" id="blogVount" value="@ViewBag.blogCount" />
+        <div class="row" id="blogList">
+            <input type="hidden" id="blog-Count" value="@ViewBag.blogCount" />
             <partial name="_BlogPartialView" model="Model" />
         </div>
         <div style="text-align:center; margin-top:50px;">
@@ -29,23 +29,5 @@
 <!-- Blog End -->
 @section Scripts{
 
-    <script>
-        $(document).ready(function () {
-            var skip = 3;
-            $(document).on('click', '#loadMore', function () {
-                $.ajax({
-                    method: "GET",
-                    url: "/blog/partial?skip=" + skip,
-                    success: function (html) {
-                        $("#blogRows").append(html);
-                        skip += 3;
-                        var productCount = $("#blogRows").val();
-                        if (skip >= productCount)
-                            $("#loadMore").remove();
-                    }
-                });
-            })
-        })
-    </script>
-
+    <partial name="_BlogScriptsPartialView" />
 }

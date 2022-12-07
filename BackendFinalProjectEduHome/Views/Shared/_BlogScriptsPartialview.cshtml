@@ -1,0 +1,18 @@
+﻿<script>
+
+    let loadBtn = document.getElementById('loadMore');
+    let blogList = document.getElementById('blogList');
+    let toPass = 3;
+    loadBtn.addEventListener('click', function () {
+        fetch('/blog/partial?toPass=' + toPass)
+            .then((response) => response.text())
+            .then((data) => {
+                blogList.innerHTML += data;
+                toPass += 3;
+                let blogCount = document.getElementById('blog-Count').value;
+                if (toPass >= blogCount) {
+                    loadBtn.style.display = 'none';
+                }
+            });
+    });
+</script>

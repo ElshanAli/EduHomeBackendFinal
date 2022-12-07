@@ -1,4 +1,5 @@
 ﻿using BackendFinalProjectEduHome.DAL;
+using BackendFinalProjectEduHome.DAL.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +15,11 @@ namespace BackendFinalProjectEduHome.Controllers
             _blogCount = _dbContext.Blogs.Count();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
             ViewBag.blogCount = _blogCount;
-            var dbBlogs = _dbContext.Blogs.Take(3).ToList();
+            List<Blog> dbBlogs = await _dbContext.Blogs.Take(3).ToListAsync();
 
             return View(dbBlogs);
         }
@@ -32,11 +33,11 @@ namespace BackendFinalProjectEduHome.Controllers
             return View(dbBlogs);
         }
 
-        public async Task<IActionResult> Partial(int skip)
+        public async Task<IActionResult> Partial(int toPass)
         {
-            if (skip >= _blogCount)
+            if (toPass >= _blogCount)
                 return BadRequest();
-            var dbBlogs = await _dbContext.Blogs.Skip(skip).Take(3).ToListAsync();
+            var dbBlogs = await _dbContext.Blogs.Skip(toPass).Take(3).ToListAsync();
 
             return PartialView("_BlogPartialView", dbBlogs);
         }

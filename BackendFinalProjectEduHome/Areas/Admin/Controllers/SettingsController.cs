@@ -32,7 +32,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             if (dbSetting == null) return NotFound();
 
-            var settingsUpdateViewModel = new SettingsUpdateViewModel 
+            var settingsUpdateViewModel = new SettingsUpdateViewModel
             {
                 HeaderLogo = dbSetting.HeaderLogo,
                 FooterLogo = dbSetting.FooterLogo,
@@ -44,10 +44,12 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 TwitterLink = dbSetting.TwitterLink,
                 VimeoLink = dbSetting.VimeoLink,
                 Address = dbSetting.Address,
+                SecondAddress = dbSetting.SecondAddress,
                 AddressImage = dbSetting.AdressImage,
                 GoogleMapCode = dbSetting.GoogleMapCode,
                 FooterDescription = dbSetting.FooterDescription,
                 WebSite = dbSetting.WebSite,
+                SecondWebsite = dbSetting.SecondWebsite,
                 WebSiteImage = dbSetting.WebsiteImage,
                 Email = dbSetting.Email,
                 SecondEmail = dbSetting.SecondEmail,
@@ -201,13 +203,15 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             dbSetting.TwitterLink = model.TwitterLink;
             dbSetting.VimeoLink = model.VimeoLink;
             dbSetting.Address = model.Address;
+            dbSetting.SecondAddress = model.SecondAddress;
             dbSetting.GoogleMapCode = model.GoogleMapCode;
             dbSetting.FooterDescription = model.FooterDescription;
             dbSetting.WebSite = model.WebSite;
+            dbSetting.SecondWebsite = model.SecondWebsite;
             dbSetting.Email = model.Email;
             dbSetting.SecondEmail = model.SecondEmail;
             dbSetting.GreetingText = model.GreetingText;
-                
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

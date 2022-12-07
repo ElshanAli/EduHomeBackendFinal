@@ -13,10 +13,12 @@ namespace BackendFinalProjectEduHome.DAL.Entity
         public string? TwitterLink { get; set; }
         public string? VimeoLink { get; set; }
         public string Address { get; set; }
+        public string? SecondAddress { get; set; }
         public string AdressImage { get; set; }
         public string GoogleMapCode { get; set; }
         public string FooterDescription { get; set; }
         public string WebSite { get; set; }
+        public string? SecondWebsite { get; set; }
         public string WebsiteImage { get; set; }
         public string Email { get; set; }
         public string? SecondEmail { get; set; }
