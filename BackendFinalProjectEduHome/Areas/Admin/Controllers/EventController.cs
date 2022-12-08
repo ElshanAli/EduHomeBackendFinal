@@ -6,6 +6,7 @@ using BackendFinalProjectEduHome.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
@@ -53,24 +54,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
-            //{
-            //    ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
-            //    return View(model);
-            //}
-
-            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-            //    return View(model);
-            //}
-
-            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
-            //    return View(model);
-            //}
-
             if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
                 || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
                 || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
@@ -105,12 +88,27 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             List<EventSpeaker> eventSpeakers = new List<EventSpeaker>();
 
+            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
+
+            var eventSpeakersSelectList = new List<SelectListItem>();
+
+           
+            speakers.ForEach(c => eventSpeakersSelectList
+            .Add(new SelectListItem(c.Firstname + " " + c.Lastname, c.Id.ToString())));
+
+            var viewModel = new EventCreateViewModel
+            {
+
+                Speakers=eventSpeakersSelectList,
+                Image=model.Image
+            };
+
             foreach (int speakerId in model.SpeakerIds)
             {
                 if (!await _dbContext.Speakers.AnyAsync(s => s.Id == speakerId))
                 {
                     ModelState.AddModelError("", "Incorect Speaker");
-                    return View();
+                    return View(viewModel);
                 }
 
                 eventSpeakers.Add(new EventSpeaker
@@ -119,12 +117,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 });
 
             }
-
-            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
-
-            var eventSpeakersSelectList = new List<SelectListItem>();
-            speakers.ForEach(c => eventSpeakersSelectList
-            .Add(new SelectListItem(c.Firstname + " " + c.Lastname, c.Id.ToString())));
 
             events.EventSpeakers = eventSpeakers;
             model.Speakers = eventSpeakersSelectList;
@@ -181,7 +173,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 Address = dbEvent.Address,
                 Speakers = eventSpeakersSelectList,
                 SpeakerIds = eventSpeakers.Select(s => s.SpeakerId).ToList()
-
             };
 
             return View(eventViewModel);
@@ -198,40 +189,30 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 .Include(e => e.EventSpeakers).ThenInclude(es => es.Speaker)
                 .Where(e => !e.IsDeleted && e.Id == id)
                 .FirstOrDefaultAsync();
+            var eventSpeakersSelectList = new List<SelectListItem>();
+
+            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
+
+            var viewModel = new EventUpdateViewModel
+            {
+                ImageUrl = dbEvent.ImageUrl,
+                Speakers = eventSpeakersSelectList,
+
+            };
+            speakers.ForEach(e => eventSpeakersSelectList
+            .Add(new SelectListItem(e.Firstname+" "+e.Lastname, e.Id.ToString())));
 
             if (dbEvent is null) return NotFound();
 
-            if (!ModelState.IsValid) return View(model);
-
-            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.StartDate) >= 0)
-            //{
-            //    ModelState.AddModelError("StartDate", "Start Date must be future and earlier than End Date");
-            //    return View(model);
-            //}
-
-            //if (DateTime.Compare(DateTime.UtcNow.AddHours(4), model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("EndDate", "End Date must be future and after Start Date");
-            //    return View(model);
-            //}
-
-            //if (DateTime.Compare(model.StartDate, model.EndDate) >= 0)
-            //{
-            //    ModelState.AddModelError("", "Start Date must be earlier than End Date");
-            //    return View(model);
-            //}
+            if (!ModelState.IsValid) return View(viewModel);            
 
             if (model.StartDate.ToString("yyyy") != model.EndDate.ToString("yyyy")
                 || model.StartDate.ToString("MM") != model.EndDate.ToString("MM")
                 || model.StartDate.ToString("dd") != model.EndDate.ToString("dd"))
             {
                 ModelState.AddModelError("", "Start Date and End Date must be same day");
-                return View(model);
+                return View(viewModel);
             }
-
-            var speakers = await _dbContext.Speakers.Where(s => !s.IsDeleted).ToListAsync();
-
-            var eventSpeakersSelectList = new List<SelectListItem>();
 
             if (model.SpeakerIds.Count > 0)
             {
@@ -240,7 +221,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                     if (!await _dbContext.Speakers.AnyAsync(c => c.Id == speakerId))
                     {
                         ModelState.AddModelError("", "Has been selected incorrect speaker.");
-                        return View(model);
+                        return View(viewModel);
                     }
                 }
 
@@ -262,8 +243,7 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             else
             {
                 ModelState.AddModelError("", "Select minimum 1 speaker");
-                return View(model);
-                //_dbContext.EventSpeakers.RemoveRange(dbEvent.EventSpeakers);
+                return View(viewModel);
             }
 
             if (model.Image != null)
@@ -271,16 +251,17 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
                 if (!model.Image.IsImage())
                 {
                     ModelState.AddModelError("", "Must be selected image");
-                    return View(model);
+                    return View(viewModel);
                 }
 
                 if (!model.Image.IsAllowedSize(7))
                 {
                     ModelState.AddModelError("", "Image size can be max 7 mb");
-                    return View(model);
+                    return View(viewModel);
                 }
 
                 if (dbEvent.ImageUrl is null) return NotFound();
+               
 
                 var eventImagePath = Path.Combine(Constants.RootPath, "assets", "img", "event", dbEvent.ImageUrl);
 
@@ -331,7 +312,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
 
             var eventImagePath = Path.Combine(Constants.RootPath, "assets", "img", "event", existevent.ImageUrl);
 
-
             if (System.IO.File.Exists(eventImagePath))
                 System.IO.File.Delete(eventImagePath);
 
@@ -340,7 +320,6 @@ namespace BackendFinalProjectEduHome.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
-
         }
     }
 }

@@ -17,13 +17,12 @@ namespace BackendFinalProjectEduHome
 
             builder.Services.AddDbContext<EduHomeDbContext>(options =>
             {
-
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                 
-                    builder=>
+
+                    builder =>
                     {
                         builder.MigrationsAssembly(nameof(BackendFinalProjectEduHome));
-                    } );
+                    });
             });
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -36,7 +35,7 @@ namespace BackendFinalProjectEduHome
                 options.Password.RequireUppercase = false;
 
                 options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<EduHomeDbContext>().AddDefaultTokenProviders(); 
+            }).AddEntityFrameworkStores<EduHomeDbContext>().AddDefaultTokenProviders();
 
             builder.Services.Configure<AdminUser>(builder.Configuration.GetSection("AdminUser"));
 
@@ -51,7 +50,6 @@ namespace BackendFinalProjectEduHome
             Constants.CoursePath = Path.Combine(Constants.RootPath, "assets", "img", "course");
 
             var app = builder.Build();
-
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -90,9 +88,7 @@ namespace BackendFinalProjectEduHome
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            
-
             await app.RunAsync();
-        }
+        } 
     }
 }
